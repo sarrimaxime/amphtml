@@ -314,6 +314,13 @@ export class AmpStory extends AMP.BaseElement {
 
     registerServiceBuilder(this.win, 'localization',
         () => this.localizationService_);
+
+    const storyPages = document.querySelectorAll('amp-story-page');
+    let index = storyPages.length;
+    for (let storyPage of storyPages) {
+      storyPage.style.setProperty('z-index', index, 'important');
+      index--;
+    }
   }
 
 
@@ -1287,8 +1294,10 @@ export class AmpStory extends AMP.BaseElement {
         }
         break;
       case UIType.SCROLL:
+        // DO THINGS OUTSIDE MUTATE
         this.vsync_.mutate(() => {
           this.element.setAttribute('scroll', '');
+          // DO THINGS DANS MUTATE
         });
         break;
     }
